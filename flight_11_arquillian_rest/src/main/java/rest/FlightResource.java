@@ -4,15 +4,9 @@ import entity.Flight;
 
 import java.util.List;
 import javax.inject.Singleton;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 
 import service.FlightService;
 
@@ -39,20 +33,22 @@ public class FlightResource {
     @Produces({"application/xml", "application/json"})
     @Path("{id}")
     public Flight getFlight(@PathParam("id") long id) {
-        System.out.println("get");
+        if (!service.exists(id))
+            throw new NotFoundException("flight with id:" + id + " does not exist.");
         return service.get(id);
     }
 
     @DELETE
     @Path("{id}")
     public void removeFlight(@PathParam("id") long id) {
-        System.out.println("remove");
+        if (!service.exists(id))
+            throw new NotFoundException("flight with id:" + id + " does not exist.");
         service.remove(id);
     }
 
     // Don't forget to set the Content-Type application/xml header of the request!
     @PUT
-    @Consumes("application/xml")
+    @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json"})
     public Flight putFlight(Flight flight) {
         Flight newFlight = service.add(flight);

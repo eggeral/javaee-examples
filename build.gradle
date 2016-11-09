@@ -10,6 +10,8 @@ version '1.0-SNAPSHOT'
 subprojects {
     repositories {
         mavenCentral()
+        maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+        maven { url 'https://repository.jboss.org/' }
     }
 
     apply plugin: 'java'

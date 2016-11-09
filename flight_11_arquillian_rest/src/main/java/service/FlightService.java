@@ -34,4 +34,7 @@ public class FlightService {
         flights.removeIf(f -> f.getId() == id);
     }
 
+    public boolean exists(long id) {
+        return flights.stream().anyMatch(flight -> flight.getId() == id);
+    }
 }

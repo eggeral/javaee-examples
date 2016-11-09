@@ -16,7 +16,7 @@ public class FlightService {
 	public static List<Flight> flights = new ArrayList<>();
 	
 	public FlightService() {
-		// we acutaly have no idea how often this gets called!
+		// we actually have no idea how often this gets called!
         flights.add(new Flight("OS101", "GRZ", "VIE"));
         flights.add(new Flight("LH2412", "MNC", "NYN"));
         flights.add(new Flight("TH112", "BKG", "PKT"));

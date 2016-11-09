@@ -1,9 +1,8 @@
 package rest;
 
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@javax.ws.rs.ApplicationPath("webresources")
+@ApplicationPath("/webresources")
 public class ApplicationConfig extends Application {
-
-    
 }
