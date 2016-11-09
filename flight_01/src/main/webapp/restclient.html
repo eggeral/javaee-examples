@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rest Client</title>
+        <meta charset="UTF-8">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="result">Loading...</div>
+
+        <script>
+            $(document).ready(function () {
+                $.getJSON('./simplerest', function (data) {
+                    $('#result').html("Hallo, " + data.name);
+                });
+            });
+        </script>
+    </body>
+</html>

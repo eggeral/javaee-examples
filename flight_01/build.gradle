@@ -1,0 +1,5 @@
+apply plugin: 'war'
+
+dependencies {
+    providedCompile group: 'javax', name: 'javaee-api', version:'7.0'
+}

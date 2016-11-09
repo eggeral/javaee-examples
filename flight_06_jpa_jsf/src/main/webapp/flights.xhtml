@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Flights</title>
+</h:head>
+<h:body>
+	<p>Hello from Facelets</p>
+	<p>
+		<h:outputText value="#{flightsController.hello}" />
+	</p>
+	<p>
+		<h:button value="Create Flight" outcome="create" />
+	</p>
+	<h:form>
+		<h:dataTable value="#{flightsController.flights}" var="flight">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="id" />
+				</f:facet>
+				<h:outputText value="#{flight.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="flight number" />
+				</f:facet>
+				<h:outputText value="#{flight.flightNumber}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="from" />
+				</f:facet>
+				<h:outputText value="#{flight.fromAirport}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="to" />
+				</f:facet>
+				<h:outputText value="#{flight.toAirport}" />
+			</h:column>
+			<h:column>
+				<h:commandLink value="Remove"
+					action="#{flightsController.remove(flight)}" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>
+

@@ -1,0 +1,19 @@
+group 'egger.software.examples'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'ear'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    deploy project(':flight_04_ejb')
+    deploy project(':flight_04_war')
+}
+
+//ear {
+//    deploymentDescriptor {
+//        webModule("rest-war.jar", "/")  // won't deploy as my.war isn't deploy dependency
+//    }
+//}

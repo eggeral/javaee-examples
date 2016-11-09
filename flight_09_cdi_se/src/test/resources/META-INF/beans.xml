@@ -1,0 +1,5 @@
+<beans>
+  <alternatives>
+    <class>cdi.FlightServiceSpec</class>
+  </alternatives>
+</beans>
