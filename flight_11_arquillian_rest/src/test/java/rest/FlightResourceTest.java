@@ -1,9 +1,6 @@
 package rest;
 
 import entity.Flight;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -22,12 +19,9 @@ import service.FlightService;
 
 import javax.ws.rs.*;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -128,7 +122,7 @@ public class FlightResourceTest {
         Long id = -9999L;
 
         // when
-        Flight flight = client.getFlight(id);
+        client.getFlight(id);
 
     }
 

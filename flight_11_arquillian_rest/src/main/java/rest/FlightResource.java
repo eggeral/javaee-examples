@@ -24,13 +24,13 @@ public class FlightResource {
     private UriInfo context;
 
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces("application/json")
     public List<Flight> getFlights() {
         return service.getFlights();
     }
 
     @GET
-    @Produces({"application/xml", "application/json"})
+    @Produces("application/json")
     @Path("{id}")
     public Flight getFlight(@PathParam("id") long id) {
         if (!service.exists(id))
@@ -48,8 +48,8 @@ public class FlightResource {
 
     // Don't forget to set the Content-Type application/xml header of the request!
     @PUT
-    @Consumes({"application/xml", "application/json"})
-    @Produces({"application/xml", "application/json"})
+    @Consumes("application/json")
+    @Produces("application/json")
     public Flight putFlight(Flight flight) {
         Flight newFlight = service.add(flight);
         return newFlight;
