@@ -17,4 +17,5 @@ include ':flight_11_swarm_rest'
 include ':flight_11_arquillian_rest'
 include ':flight_12_swarm_rest_cdi'
 include ':flight_12_arquillian_rest_cdi'
+include ':flight_13_arquillian_rest_ejb'
 
