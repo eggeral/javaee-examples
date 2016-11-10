@@ -1,0 +1,21 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.wildfly.swarm:wildfly-swarm-plugin:2016.11.0"
+    }
+}
+
+apply plugin: 'wildfly-swarm'
+apply plugin: 'application'
+
+mainClassName = 'swarm.Main'
+
+dependencies {
+
+    compile group: 'org.wildfly.swarm', name: 'jaxrs', version: '2016.11.0'
+    compile project(':flight_11_arquillian_rest')
+
+}
