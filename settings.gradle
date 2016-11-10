@@ -1,4 +1,4 @@
-rootProject.name = 'jee-examples'
+rootProject.name = 'javaee-examples'
 include ':flight_01'
 include ':flight_02_jsp'
 include ':flight_03_rest'
@@ -18,4 +18,5 @@ include ':flight_11_arquillian_rest'
 include ':flight_12_swarm_rest_cdi'
 include ':flight_12_arquillian_rest_cdi'
 include ':flight_13_arquillian_rest_ejb'
+include ':flight_14_arquillian_rest_ejb_jpa'
 
