@@ -15,7 +15,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.wildfly.swarm.jaxrs.JAXRSArchive;
 import service.FlightService;
+import swarm.SwarmDeployment;
 
 import javax.ws.rs.*;
 import java.net.URL;
@@ -54,12 +56,8 @@ public class FlightResourceTest {
     private static final String RESOURCE_PREFIX = ApplicationConfig.class.getAnnotation(ApplicationPath.class).value().substring(1);
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addPackage(Flight.class.getPackage())
-                .addPackage(FlightService.class.getPackage())
-                .addClasses(ApplicationConfig.class, FlightResource.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+    public static JAXRSArchive createDeployment() {
+        return SwarmDeployment.createDeployment();
     }
 
     @ArquillianResource

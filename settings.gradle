@@ -13,5 +13,8 @@ include ':flight_08_rest_client'
 include ':flight_09_cdi_se'
 include ':flight_10_jfx_server'
 include ':flight_10_jfx_client'
+include ':flight_11_swarm_rest'
 include ':flight_11_arquillian_rest'
+include ':flight_12_swarm_rest_cdi'
+include ':flight_12_arquillian_rest_cdi'
 
