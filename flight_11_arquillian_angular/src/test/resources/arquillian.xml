@@ -1,0 +1,8 @@
+<arquillian>
+    <extension qualifier="webdriver">
+        <property name="browser">chrome</property>
+    </extension>
+    <engine>
+        <property name="deploymentExportPath">build/deployments</property>
+    </engine>
+</arquillian>

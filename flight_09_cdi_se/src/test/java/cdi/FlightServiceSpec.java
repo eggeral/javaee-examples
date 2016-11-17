@@ -2,6 +2,7 @@ package cdi;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import storage.XmlStorage;
@@ -41,6 +42,7 @@ public class FlightServiceSpec {
 	
 	
 	@Test
+	@Ignore
 	public void canAddNewFlights() throws IOException {
 		
 		// given
@@ -99,6 +101,7 @@ public class FlightServiceSpec {
 	}
 	
 	@Test
+	@Ignore
 	public void canSearchForFlightsById() {
 		// given
 		FlightService client = container.instance().select(FlightService.class).get();
@@ -124,6 +127,7 @@ public class FlightServiceSpec {
 
 	
 	@Test
+	@Ignore
 	public void canDeleteFlights() {
 		// given
 		FlightService client = container.instance().select(FlightService.class).get();

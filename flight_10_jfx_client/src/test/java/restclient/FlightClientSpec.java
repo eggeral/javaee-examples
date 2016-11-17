@@ -1,12 +1,15 @@
 package restclient;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
+@SuppressWarnings("Duplicates")
 public class FlightClientSpec {
 
 	@Test
+	@Ignore
 	public void canAddNewFlights() {
 		// given
 		FlightClient client = new FlightClient();
@@ -26,6 +29,7 @@ public class FlightClientSpec {
 	}
 
 	@Test
+    @Ignore
 	public void canSearchForFlightsById() {
 		// given
 		FlightClient client = new FlightClient();
@@ -50,6 +54,7 @@ public class FlightClientSpec {
 
 	
 	@Test
+    @Ignore
 	public void canDeleteFlights() {
 		// given
 		FlightClient client = new FlightClient();
@@ -69,6 +74,5 @@ public class FlightClientSpec {
 		
 		
 	}
-
 
 }
