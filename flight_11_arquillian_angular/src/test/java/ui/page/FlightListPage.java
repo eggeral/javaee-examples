@@ -23,8 +23,7 @@ public class FlightListPage {
     }
 
     public boolean containsFlight(String flightNumber, String from, String to) {
-        List<WebElement> rows = flightTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
-        for (WebElement row : rows) {
+        for (WebElement row : getFlightRows()) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             if (cells.get(0).getText().equals(flightNumber) &&
                     cells.get(1).getText().equals(from) &&
@@ -32,5 +31,19 @@ public class FlightListPage {
                 return true;
         }
         return false;
+    }
+
+    public void editFlight(String flightNumber) {
+        for (WebElement row : getFlightRows()) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            if (cells.get(0).getText().equals(flightNumber)) {
+                cells.get(3).click();
+                return;
+            }
+        }
+    }
+
+    private List<WebElement> getFlightRows() {
+        return flightTable.findElement(By.tagName("tbody")).findElements(By.tagName("tr"));
     }
 }

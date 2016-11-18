@@ -48,20 +48,92 @@ public class FlightUiSpec {
     private FlightPage flightPage;
 
     @Test
-    public void canAddNewFlights(@InitialPage FlightListPage flightListPage) {
+    public void flightsCanBeAdded(@InitialPage FlightListPage flightListPage) {
         // given
-        assertThat(flightListPage.containsFlight("ABC", "FROM", "TO"), is(false));
+        assertThat(flightListPage.containsFlight("ABC1", "FROM1", "TO1"), is(false));
         flightListPage.addNewFlight();
 
         // when
-        flightPage.setFlightNumber("ABC");
-        flightPage.setFrom("FROM");
-        flightPage.setTo("TO");
+        flightPage.setFlightNumber("ABC1");
+        flightPage.setFrom("FROM1");
+        flightPage.setTo("TO1");
         flightPage.save();
 
         // then
-        assertThat(flightListPage.containsFlight("ABC", "FROM", "TO"), is(true));
+        assertThat(flightListPage.containsFlight("ABC1", "FROM1", "TO1"), is(true));
     }
 
+    @Test
+    public void flightsCanBeDeleted(@InitialPage FlightListPage flightListPage) {
+        // given
+        assertThat(flightListPage.containsFlight("ABC2", "FROM2", "TO2"), is(false));
+        flightListPage.addNewFlight();
+        flightPage.createFlight("ABC2", "FROM2", "TO2");
+        assertThat(flightListPage.containsFlight("ABC2", "FROM2", "TO2"), is(true));
+
+        // when
+        flightListPage.editFlight("ABC2");
+        flightPage.delete();
+
+        // then
+        assertThat(flightListPage.containsFlight("ABC2", "FROM2", "TO2"), is(false));
+    }
+
+    @Test
+    public void flightsCanBeUpdated(@InitialPage FlightListPage flightListPage) {
+        // given
+        assertThat(flightListPage.containsFlight("ABC3", "FROM3", "TO3"), is(false));
+        flightListPage.addNewFlight();
+        flightPage.createFlight("ABC3", "FROM3", "TO3");
+        assertThat(flightListPage.containsFlight("ABC3", "FROM3", "TO3"), is(true));
+
+        // when
+        flightListPage.editFlight("ABC3");
+        flightPage.setFlightNumber("ABC4");
+        flightPage.setFrom("FROM4");
+        flightPage.setTo("TO4");
+        flightPage.save();
+
+        // then
+        assertThat(flightListPage.containsFlight("ABC3", "FROM3", "TO3"), is(false));
+        assertThat(flightListPage.containsFlight("ABC4", "FROM4", "TO4"), is(true));
+    }
+
+    @Test
+    public void updatingAFlightCanBeCanceled(@InitialPage FlightListPage flightListPage) {
+        // given
+        assertThat(flightListPage.containsFlight("ABC5", "FROM5", "TO5"), is(false));
+        flightListPage.addNewFlight();
+        flightPage.createFlight("ABC5", "FROM5", "TO5");
+        assertThat(flightListPage.containsFlight("ABC5", "FROM5", "TO5"), is(true));
+
+        // when
+        flightListPage.editFlight("ABC5");
+        flightPage.setFlightNumber("ABC6");
+        flightPage.setFrom("FROM6");
+        flightPage.setTo("TO6");
+        flightPage.cancel();
+
+        // then
+        assertThat(flightListPage.containsFlight("ABC5", "FROM5", "TO5"), is(true));
+        assertThat(flightListPage.containsFlight("ABC6", "FROM6", "TO6"), is(false));
+
+    }
+
+    @Test
+    public void addingAFlightCanBeCanceled(@InitialPage FlightListPage flightListPage) {
+        // given
+        assertThat(flightListPage.containsFlight("ABC7", "FROM7", "TO7"), is(false));
+        flightListPage.addNewFlight();
+
+        // when
+        flightPage.setFlightNumber("ABC7");
+        flightPage.setFrom("FROM7");
+        flightPage.setTo("TO7");
+        flightPage.cancel();
+
+        // then
+        assertThat(flightListPage.containsFlight("ABC7", "FROM7", "TO7"), is(false));
+    }
 
 }

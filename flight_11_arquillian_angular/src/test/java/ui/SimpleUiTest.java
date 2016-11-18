@@ -48,7 +48,7 @@ public class SimpleUiTest {
     @Test
     public void canOpenOurIndexHtml() {
         driver.get(deploymentUrl.toExternalForm() + "/index.html");
-        assertThat(driver.getTitle(), is("Flight - Arquillian - AngularJS"));
+        assertThat(driver.getTitle(), is("Flight - Arquillian - Angular"));
     }
 
 }

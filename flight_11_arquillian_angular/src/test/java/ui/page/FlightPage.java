@@ -28,28 +28,36 @@ public class FlightPage {
     private WebElement toInput;
 
     public void setFlightNumber(String flightNumber) {
+        flightNumberInput.clear();
         flightNumberInput.sendKeys(flightNumber);
     }
 
     public void setFrom(String from) {
+        fromInput.clear();
         fromInput.sendKeys(from);
     }
 
     public void setTo(String to) {
+        toInput.clear();
         toInput.sendKeys(to);
     }
 
     public void save() {
-//        guardAjax(saveButton).click();
         saveButton.click();
     }
 
     public void delete() {
-        guardAjax(deleteButton).click();
+        deleteButton.click();
     }
 
     public void cancel() {
-        guardAjax(cancelButton).click();
+        cancelButton.click();
     }
 
+    public void createFlight(String flightNumber, String from, String to) {
+        setFlightNumber(flightNumber);
+        setFrom(from);
+        setTo(to);
+        save();
+    }
 }
