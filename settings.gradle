@@ -20,4 +20,5 @@ include ':flight_13_arquillian_rest_cdi'
 include ':flight_14_arquillian_rest_ejb'
 include ':flight_15_arquillian_rest_ejb_jpa'
 include ':flight_16_arquillian_full_stack'
+include ':flight_17_plain_junit_rest_ejb_jpa'
 
