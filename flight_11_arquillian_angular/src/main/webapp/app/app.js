@@ -6,14 +6,14 @@ app.factory("flightService", [function () {
         {
             id: 1,
             flightNumber: "OS201",
-            from: "FRZ",
-            to: "DUS"
+            fromAirport: "FRZ",
+            toAirport: "DUS"
         },
         {
             id: 2,
             flightNumber: "LH5434",
-            from: "VIE",
-            to: "MUC"
+            fromAirport: "VIE",
+            toAirport: "MUC"
         }
     ];
 
@@ -41,8 +41,8 @@ app.factory("flightService", [function () {
     obj.updateFlight = function (flight) {
         var original = obj.getFlight(flight.id);
         original.flightNumber = flight.flightNumber;
-        original.from = flight.from;
-        original.to = flight.to;
+        original.fromAirport = flight.fromAirport;
+        original.toAirport = flight.toAirport;
     };
 
     obj.deleteFlight = function (flight) {
@@ -61,21 +61,23 @@ app.controller('flightListController', function ($scope, flightService) {
     $scope.flights = flightService.getFlights();
 });
 
-app.controller('flightController', function ($scope, $rootScope, $location, $routeParams, flightService, flight) {
+app.controller('flightController', function ($scope, $location, flightService, flight) {
     $scope.flight = angular.copy(flight);
 
     $scope.deleteFlight = function (flight) {
-        $location.path('/');
         flightService.deleteFlight(flight);
+        $location.path('/');
+
     };
 
     $scope.saveFlight = function (flight) {
-        $location.path('/');
         if (flight.id > 0) {
             flightService.updateFlight(flight);
+            $location.path('/');
         }
         else {
             flightService.insertFlight(flight);
+            $location.path('/');
         }
     };
 });
@@ -92,8 +94,11 @@ app.config(['$routeProvider',
                 controller: 'flightController',
                 resolve: {
                     flight: function (flightService, $route) {
-                        var flightId = $route.current.params.flightId;
-                        return flightService.getFlight(flightId);
+                        var flightId = parseInt($route.current.params.flightId);
+                        if (flightId > 0)
+                            return flightService.getFlight(flightId);
+                        else
+                            return {id: 0}
                     }
                 }
             })

@@ -22,6 +22,7 @@ import java.net.URL;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+@SuppressWarnings("Duplicates")
 @RunWith(Arquillian.class)
 @RunAsClient
 public class FlightUiSpec {
