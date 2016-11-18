@@ -40,17 +40,17 @@ public class FlightResource {
 
     @DELETE
     @Path("{id}")
-    public void removeFlight(@PathParam("id") long id) {
+    public void deleteFlight(@PathParam("id") long id) {
         if (!service.exists(id))
             throw new NotFoundException("flight with id:" + id + " does not exist.");
         service.remove(id);
     }
 
     // Don't forget to set the Content-Type application/xml header of the request!
-    @PUT
+    @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Flight putFlight(Flight flight) {
+    public Flight createFlight(Flight flight) {
         Flight newFlight = service.add(flight);
         return newFlight;
     }

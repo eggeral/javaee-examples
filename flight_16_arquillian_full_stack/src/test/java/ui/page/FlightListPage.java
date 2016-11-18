@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
 @Location("index.html")
 public class FlightListPage {
 
@@ -37,7 +38,7 @@ public class FlightListPage {
         for (WebElement row : getFlightRows()) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             if (cells.get(0).getText().equals(flightNumber)) {
-                cells.get(3).click();
+                guardAjax(cells.get(3)).click();
                 return;
             }
         }

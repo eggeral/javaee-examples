@@ -39,4 +39,13 @@ public class FlightService {
     public boolean exists(long id) {
         return em.find(Flight.class, id) != null;
     }
+
+    public Flight updateFlight(long id, Flight flight) {
+        Flight oldFlight = em.find(Flight.class, id);
+        oldFlight.setFlightNumber(flight.getFlightNumber());
+        oldFlight.setFromAirport(flight.getFromAirport());
+        oldFlight.setToAirport(flight.getToAirport());
+
+        return oldFlight;
+    }
 }

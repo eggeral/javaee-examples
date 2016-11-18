@@ -27,6 +27,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+@SuppressWarnings("Duplicates")
 @RunWith(Arquillian.class)
 @RunAsClient
 public class FlightResourceTest {
@@ -45,12 +46,12 @@ public class FlightResourceTest {
 
         @DELETE
         @Path("{id}")
-        void removeFlight(@PathParam("id") long id);
+        void deleteFlight(@PathParam("id") long id);
 
-        @PUT
+        @POST
         @Consumes("application/json")
         @Produces("application/json")
-        Flight putFlight(Flight flight);
+        Flight createFlight(Flight flight);
     }
 
     private static final String RESOURCE_PREFIX = ApplicationConfig.class.getAnnotation(ApplicationPath.class).value().substring(1);
@@ -86,7 +87,7 @@ public class FlightResourceTest {
         Flight flight = new Flight("OS202", "GRZ", "DUS");
 
         // when
-        Flight newFlight = client.putFlight(flight);
+        Flight newFlight = client.createFlight(flight);
 
         // then
         assertThat(newFlight.getId(), is(not(0)));
@@ -100,7 +101,7 @@ public class FlightResourceTest {
     public void canGetAFlightByItsId() {
 
         // given
-        Long id = client.putFlight(new Flight("OS202", "GRZ", "DUS")).getId();
+        Long id = client.createFlight(new Flight("OS202", "GRZ", "DUS")).getId();
 
         // when
         Flight flight = client.getFlight(id);
@@ -129,11 +130,11 @@ public class FlightResourceTest {
     public void aFlightCanBeRemoved() {
 
         // given
-        Long id = client.putFlight(new Flight("OS202", "GRZ", "DUS")).getId();
+        Long id = client.createFlight(new Flight("OS202", "GRZ", "DUS")).getId();
 
         // when
         client.getFlight(id);
-        client.removeFlight(id);
+        client.deleteFlight(id);
 
         // then
         try {
@@ -152,7 +153,7 @@ public class FlightResourceTest {
         Long id = -9999L;
 
         // when
-        client.removeFlight(id);
+        client.deleteFlight(id);
 
     }
 
@@ -161,11 +162,11 @@ public class FlightResourceTest {
     public void canGetAListOfAllFlights() {
         // cleanup
         List<Flight> oldFlights = client.getFlights();
-        oldFlights.forEach(flight -> client.removeFlight(flight.getId()));
+        oldFlights.forEach(flight -> client.deleteFlight(flight.getId()));
 
         // given
-        Flight flight1 = client.putFlight(new Flight("OS202", "GRZ", "DUS"));
-        Flight flight2 = client.putFlight(new Flight("LH1234", "GRZ", "VIE"));
+        Flight flight1 = client.createFlight(new Flight("OS202", "GRZ", "DUS"));
+        Flight flight2 = client.createFlight(new Flight("LH1234", "GRZ", "VIE"));
 
         // when
         List<Flight> newFlights = client.getFlights();

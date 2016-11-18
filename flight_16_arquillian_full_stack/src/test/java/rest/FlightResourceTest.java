@@ -42,12 +42,18 @@ public class FlightResourceTest {
 
         @DELETE
         @Path("{id}")
-        void removeFlight(@PathParam("id") long id);
+        void deleteFlight(@PathParam("id") long id);
+
+        @POST
+        @Consumes("application/json")
+        @Produces("application/json")
+        Flight createFlight(Flight flight);
 
         @PUT
         @Consumes("application/json")
         @Produces("application/json")
-        Flight putFlight(Flight flight);
+        @Path("{id}")
+        Flight updateFlight(@PathParam("id") long id, Flight flight);
     }
 
     private static final String RESOURCE_PREFIX = ApplicationConfig.class.getAnnotation(ApplicationPath.class).value().substring(1);
@@ -83,7 +89,7 @@ public class FlightResourceTest {
         Flight flight = new Flight("OS202", "GRZ", "DUS");
 
         // when
-        Flight newFlight = client.putFlight(flight);
+        Flight newFlight = client.createFlight(flight);
 
         // then
         assertThat(newFlight.getId(), is(not(0)));
@@ -94,10 +100,45 @@ public class FlightResourceTest {
     }
 
     @Test
+    public void flightsCanBeUpdated() throws Exception {
+
+        // given
+        Flight oldFlight = client.createFlight(new Flight("ABC1", "FROM1", "TO1"));
+
+        // when
+        Flight newFlight = client.updateFlight(oldFlight.getId(), new Flight("ABC2", "FROM2", "TO2"));
+
+        // then
+        assertThat(newFlight.getId(), is(oldFlight.getId()));
+        assertThat(newFlight.getFlightNumber(), is("ABC2"));
+        assertThat(newFlight.getFromAirport(), is("FROM2"));
+        assertThat(newFlight.getToAirport(), is("TO2"));
+
+        newFlight = client.getFlight(oldFlight.getId()); // paranoia
+        assertThat(newFlight.getId(), is(oldFlight.getId()));
+        assertThat(newFlight.getFlightNumber(), is("ABC2"));
+        assertThat(newFlight.getFromAirport(), is("FROM2"));
+        assertThat(newFlight.getToAirport(), is("TO2"));
+
+    }
+
+
+    @Test(expected = NotFoundException.class)
+    public void tryingToUpdateAFlightWhichDoesNotExistReturnsNotFound() {
+
+        // given
+        Long id = -9999L;
+
+        // when
+        client.updateFlight(id, new Flight("OS202", "GRZ", "DUS"));
+
+    }
+
+    @Test
     public void canGetAFlightByItsId() {
 
         // given
-        Long id = client.putFlight(new Flight("OS202", "GRZ", "DUS")).getId();
+        Long id = client.createFlight(new Flight("OS202", "GRZ", "DUS")).getId();
 
         // when
         Flight flight = client.getFlight(id);
@@ -126,11 +167,11 @@ public class FlightResourceTest {
     public void aFlightCanBeRemoved() {
 
         // given
-        Long id = client.putFlight(new Flight("OS202", "GRZ", "DUS")).getId();
+        Long id = client.createFlight(new Flight("OS202", "GRZ", "DUS")).getId();
 
         // when
         client.getFlight(id);
-        client.removeFlight(id);
+        client.deleteFlight(id);
 
         // then
         try {
@@ -149,7 +190,7 @@ public class FlightResourceTest {
         Long id = -9999L;
 
         // when
-        client.removeFlight(id);
+        client.deleteFlight(id);
 
     }
 
@@ -158,15 +199,13 @@ public class FlightResourceTest {
     public void canGetAListOfAllFlights() {
         // cleanup
         List<Flight> oldFlights = client.getFlights();
-        oldFlights.forEach(flight -> {
-            System.out.println(flight);
-            client.removeFlight(flight.getId());
-        });
+        oldFlights.forEach(flight -> client.deleteFlight(flight.getId()));
+
         assertThat(client.getFlights().size(), is(0));
 
         // given
-        Flight flight1 = client.putFlight(new Flight("OS202", "GRZ", "DUS"));
-        Flight flight2 = client.putFlight(new Flight("LH1234", "GRZ", "VIE"));
+        Flight flight1 = client.createFlight(new Flight("OS202", "GRZ", "DUS"));
+        Flight flight2 = client.createFlight(new Flight("LH1234", "GRZ", "VIE"));
 
         // when
         List<Flight> newFlights = client.getFlights();

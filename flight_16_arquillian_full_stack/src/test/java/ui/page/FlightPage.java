@@ -43,11 +43,11 @@ public class FlightPage {
     }
 
     public void save() {
-        saveButton.click();
+        guardAjax(saveButton).click();
     }
 
     public void delete() {
-        deleteButton.click();
+        guardAjax(deleteButton).click();
     }
 
     public void cancel() {

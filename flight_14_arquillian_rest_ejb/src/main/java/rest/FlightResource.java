@@ -12,10 +12,6 @@ import javax.ws.rs.core.UriInfo;
 
 import service.FlightService;
 
-// Jersey automatically serves webresource/application.wadl RestEasy does not
-// https://issues.jboss.org/browse/RESTEASY-166
-// http://localhost:8080/flight_3_rest-1.0-SNAPSHOT/webresources/flights
-
 @Path("flights")
 @Singleton
 public class FlightResource {
@@ -43,18 +39,16 @@ public class FlightResource {
 
     @DELETE
     @Path("{id}")
-    public void removeFlight(@PathParam("id") long id) {
+    public void deleteFlight(@PathParam("id") long id) {
         if (!service.exists(id))
             throw new NotFoundException("flight with id:" + id + " does not exist.");
         service.remove(id);
     }
 
-    // Don't forget to set the Content-Type application/xml header of the request!
-    @PUT
+    @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Flight putFlight(Flight flight) {
-        Flight newFlight = service.add(flight);
-        return newFlight;
+    public Flight createFlight(Flight flight) {
+        return service.add(flight);
     }
 }
