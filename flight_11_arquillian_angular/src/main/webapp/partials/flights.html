@@ -1,0 +1,19 @@
+<a id="addNewFlightButton" href="#/edit-flight/0">Add new Flight</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Flight</th>
+        <th>From</th>
+        <th>To</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="data in flights">
+        <td>{{data.flightNumber}}</td>
+        <td>{{data.from}}</td>
+        <td>{{data.to}}</td>
+        <td><a href="#/edit-flight/{{data.id}}">Edit Flight</a></td>
+    </tr>
+    </tbody>
+</table>

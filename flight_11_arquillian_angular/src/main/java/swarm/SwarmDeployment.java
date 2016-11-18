@@ -8,7 +8,7 @@ public class SwarmDeployment {
     public static Archive createDeployment() {
         WARArchive archive = ShrinkWrap.create(WARArchive.class, "test.war");
         archive.staticContent();
-        System.out.println(archive.toString(true));
+        //System.out.println(archive.toString(true));
         return archive;
     }
 }
