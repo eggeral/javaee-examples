@@ -1,5 +1,5 @@
 var app = angular.module('flight', ['ngRoute']);
-app.factory("services", [function () {
+app.factory("flightService", [function () {
     var obj = {};
 
     obj.flights = [
@@ -16,6 +16,7 @@ app.factory("services", [function () {
             to: "MUC"
         }
     ];
+
     obj.nextId = 3;
 
     obj.getFlights = function () {
@@ -56,44 +57,43 @@ app.factory("services", [function () {
     return obj;
 }]);
 
-app.controller('listCtrl', function ($scope, services) {
-    $scope.flights = services.getFlights();
+app.controller('flightListController', function ($scope, flightService) {
+    $scope.flights = flightService.getFlights();
 });
 
-app.controller('editCtrl', function ($scope, $rootScope, $location, $routeParams, services, flight) {
+app.controller('flightController', function ($scope, $rootScope, $location, $routeParams, flightService, flight) {
     $scope.flight = angular.copy(flight);
 
     $scope.deleteFlight = function (flight) {
         $location.path('/');
-        services.deleteFlight(flight);
+        flightService.deleteFlight(flight);
     };
 
     $scope.saveFlight = function (flight) {
         $location.path('/');
         if (flight.id > 0) {
-            services.updateFlight(flight);
+            flightService.updateFlight(flight);
         }
         else {
-            services.insertFlight(flight);
+            flightService.insertFlight(flight);
         }
     };
 });
 
 app.config(['$routeProvider',
     function ($routeProvider) {
-        $routeProvider.when('/', {
-            title: 'Flights',
-            templateUrl: 'partials/flights.html',
-            controller: 'listCtrl'
-        })
+        $routeProvider
+            .when('/', {
+                templateUrl: 'partials/flights.html',
+                controller: 'flightListController'
+            })
             .when('/edit-flight/:flightId', {
-                title: 'Edit Flight',
                 templateUrl: 'partials/edit-flight.html',
-                controller: 'editCtrl',
+                controller: 'flightController',
                 resolve: {
-                    flight: function (services, $route) {
+                    flight: function (flightService, $route) {
                         var flightId = $route.current.params.flightId;
-                        return services.getFlight(flightId);
+                        return flightService.getFlight(flightId);
                     }
                 }
             })
@@ -101,8 +101,4 @@ app.config(['$routeProvider',
                 redirectTo: '/'
             });
     }]);
-app.run(['$location', '$rootScope', function ($location, $rootScope) {
-    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-        $rootScope.title = current.$$route.title;
-    });
-}]);
+app.run();
