@@ -11,12 +11,13 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("Duplicates")
 @Stateless
 @LocalBean
 public class FlightService {
 
     @PersistenceContext(unitName = "flight_16")
-    private EntityManager em;
+    EntityManager em;
 
     public List<Flight> getFlights() {
         return em.createQuery("SELECT f from Flight f").getResultList();

@@ -92,7 +92,7 @@ public class FlightResourceIntegrationTest {
         Flight newFlight = client.createFlight(flight);
 
         // then
-        assertThat(newFlight.getId(), is(not(0)));
+        assertThat(newFlight.getId(), is(not(0L)));
         assertThat(newFlight.getFlightNumber(), is("OS202"));
         assertThat(newFlight.getFromAirport(), is("GRZ"));
         assertThat(newFlight.getToAirport(), is("DUS"));
@@ -144,7 +144,7 @@ public class FlightResourceIntegrationTest {
         Flight flight = client.getFlight(id);
 
         // then
-        assertThat(flight.getId(), is(not(0)));
+        assertThat(flight.getId(), is(not(0L)));
         assertThat(flight.getFlightNumber(), is("OS202"));
         assertThat(flight.getFromAirport(), is("GRZ"));
         assertThat(flight.getToAirport(), is("DUS"));
