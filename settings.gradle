@@ -22,4 +22,5 @@ include ':flight_15_arquillian_rest_ejb_jpa'
 include ':flight_16_arquillian_full_stack'
 include ':flight_17_plain_junit_rest_ejb_jpa'
 include ':flight_18_mocking_rest_ejb_jpa'
+include ':flight_19_memdb_rest_ejb_jpa'
 
