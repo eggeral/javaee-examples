@@ -1,26 +1,23 @@
 package rest;
 
 import entity.Flight;
+import service.FlightService;
 
-import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-
-import service.FlightService;
+import java.util.List;
 
 @Path("flights")
 @Singleton
 public class FlightResource {
 
-    @EJB
     private FlightService service;
 
-    @Context
-    private UriInfo context;
+    @EJB
+    void setFlightService(FlightService service) { //intentional default access
+        this.service = service;
+    }
 
     @GET
     @Produces("application/json")

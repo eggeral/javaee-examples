@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 @SuppressWarnings("Duplicates")
 @RunWith(Arquillian.class)
 @RunAsClient
-public class FlightResourceTest {
+public class FlightResourceIntegrationTest {
 
     @Path("flights")
     private interface FlightResourceClient {
