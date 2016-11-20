@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
 public class FlightUiSpec {
 
     @BeforeClass
-    public static void setupWebDriver() {
+    public static void setupWebDriverAndMavenRepositories() {
         ChromeDriverManager.getInstance().setup();
     }
 

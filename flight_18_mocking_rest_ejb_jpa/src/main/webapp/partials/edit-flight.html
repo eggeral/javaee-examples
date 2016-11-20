@@ -1,0 +1,19 @@
+<form role="form" name="editFlight">
+
+    <label>Flight Number</label>
+    <input id="flightNumberInput" name="name" ng-model="flight.flightNumber" type="text"/>
+    <br>
+
+    <label>From</label>
+    <input id="fromInput" name="from" ng-model="flight.fromAirport" type="text"/>
+    <br>
+
+    <label>To</label>
+    <input id="toInput" name="to" ng-model="flight.toAirport" type="text"/>
+    <br>
+
+    <a id="cancelButton" href="#/">Cancel</a>
+    <button id="saveButton" ng-click="saveFlight(flight);">Save</button>
+    <button id="deleteButton" ng-click="deleteFlight(flight);" ng-show="flight.id > 0;">Delete</button>
+
+</form>

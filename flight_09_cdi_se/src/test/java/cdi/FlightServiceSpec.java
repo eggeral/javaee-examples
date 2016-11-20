@@ -17,14 +17,9 @@ import org.jboss.weld.environment.se.WeldContainer;
 
 import static org.hamcrest.Matchers.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
+@Alternative
 public class FlightServiceSpec {
 	private Weld weld;
 	private WeldContainer container;
@@ -71,35 +66,7 @@ public class FlightServiceSpec {
 	private XmlStorage dummyStorage() { // Produces is not really necessary but this shows how Produces works 
 		return new DummyStorage();
 	}
-	
-	@Alternative
-	private static class DummyStorage implements XmlStorage {
-		Map<String, ByteArrayOutputStream> disk = new HashMap<>();
-		
-		@Override
-		public InputStream getInputStream(String name) {
-			return new ByteArrayInputStream(disk.get(name).toByteArray());
-		}
 
-		@Override
-		public void remove(String name) {
-			disk.remove(name);
-		}
-
-		@Override
-		public OutputStream getOutputStream(String name) {
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			disk.put(name, buffer);
-			return buffer;
-		}
-
-		@Override
-		public boolean exists(String name) {
-			return disk.containsKey(name);
-		}
-		
-	}
-	
 	@Test
 	@Ignore
 	public void canSearchForFlightsById() {

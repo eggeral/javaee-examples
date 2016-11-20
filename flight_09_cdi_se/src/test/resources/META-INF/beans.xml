@@ -1,5 +1,5 @@
 <beans>
-  <alternatives>
-    <class>cdi.FlightServiceSpec</class>
-  </alternatives>
+    <alternatives>
+        <class>cdi.FlightServiceSpec</class>
+    </alternatives>
 </beans>
